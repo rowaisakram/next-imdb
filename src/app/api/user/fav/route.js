@@ -1,6 +1,6 @@
 import User from "@/lib/models/user.model";
+import { connect } from "@/lib/mongodb/mongoose";
 import { clerkClient, currentUser } from "@clerk/nextjs/server";
-import { connect } from "mongoose";
 
 export const PUT = async (req) => {
   const user = await currentUser();
@@ -21,7 +21,6 @@ export const PUT = async (req) => {
         { new: true }
       );
       const updatedFavs = updatedUser.favs.map((fav) => fav.movieId);
-      console.log("updatefac");
       await client.users.updateUserMetadata(user.id, {
         publicMetadata: {
           favs: updatedFavs,
@@ -33,11 +32,11 @@ export const PUT = async (req) => {
         user.publicMetadata.userMongoId,
         {
           $addToSet: {
-            fav: {
+            favs: {
               movieId: data.movieId,
               title: data.title,
               description: data.overview,
-              dateRelased: data.realseDate,
+              dateReleased: data.releaseDate,
               rating: data.voteCount,
               image: data.image,
             },

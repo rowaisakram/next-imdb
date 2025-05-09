@@ -1,6 +1,7 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
-import { useRouter } from "next/compat/router";
+import { useRouter } from "next/navigation";
+
 import React, { useEffect, useState } from "react";
 
 export default function AddToFav({
@@ -8,7 +9,7 @@ export default function AddToFav({
   title,
   image,
   overview,
-  realaseDate,
+  releaseDate,
   voteCount,
 }) {
   const [isFav, setIsFav] = useState(false);
@@ -29,7 +30,7 @@ export default function AddToFav({
     setIsLoading(true);
     if (!isSignedIn) {
       setIsLoading(false);
-      router.push("/sgin-in");
+      router.push("/sign-in");
       return;
     }
     try {
@@ -42,7 +43,7 @@ export default function AddToFav({
           movieId,
           title,
           overview,
-          realaseDate,
+          releaseDate,
           voteCount,
           image,
         }),
@@ -50,7 +51,7 @@ export default function AddToFav({
       if (res.ok) {
         setIsFav(!isFav);
       } else {
-        console.log("Failed to update favorites");
+        console.log(res, "Failed to update favorites");
       }
     } catch (error) {
       console.error("Error ", error);
