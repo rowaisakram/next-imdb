@@ -51,7 +51,7 @@ URL=your_app_url
 1. **Clone the repository:**
 
    ```bash
-   git clone https://github.com/your-username/imdb-clone.git
+   git clone https://github.com/your-username/next-imdb.git
    cd imdb-clone
    ```
 
