@@ -21,6 +21,7 @@ export const PUT = async (req) => {
         { new: true }
       );
       const updatedFavs = updatedUser.favs.map((fav) => fav.movieId);
+      console.log("updatefac");
       await client.users.updateUserMetadata(user.id, {
         publicMetadata: {
           favs: updatedFavs,
