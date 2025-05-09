@@ -1,9 +1,13 @@
+import Pagination from "@/components/Pagination";
 import Results from "@/components/Results";
+import Link from "next/link";
 
 const API_KEY = process.env.API_KEY;
-export default async function Home() {
+export default async function Home({ searchParams }) {
+  const getPage = await searchParams;
+  const page = parseInt(getPage.page) || "1";
   const res = await fetch(
-    `https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY}&language=en&page=1`
+    `https://api.themoviedb.org/3/trending/all/week?api_key=${API_KEY}&language=en&page=${page}`
   );
   const data = await res.json();
   if (!res.ok) {
@@ -48,6 +52,7 @@ export default async function Home() {
       <div>
         <Results results={results} />
       </div>
+      <Pagination currentPage={page} />
     </div>
   );
 }
